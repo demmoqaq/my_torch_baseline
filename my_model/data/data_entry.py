@@ -14,14 +14,14 @@ from my_model.data.data_transform import train_transform, no_transform
 from utils.tensorboard.tensorboard_start import writer
 
 
-def load_image_dataset(args, is_train):
+def load_image_dataset(img_dirs, annotations_file_dirs, args, is_train):
     print('\r->creating data loader...')
     without_label = False
     if args.annotations_file_dirs is None:
         print("    ->do not pass annotations_file_dir, will read data directly from directory, default label is 1")
         without_label = True
     dataset = CustomImageDataset(
-        img_dirs=args.img_dirs, annotations_file_dirs=args.annotations_file_dirs,
+        img_dirs=img_dirs, annotations_file_dirs=annotations_file_dirs,
         without_label=without_label, in_memory=args.data_in_memory, read_method=args.data_read_method,
         transform=train_transform, target_transform=None
     )
@@ -39,7 +39,7 @@ def load_image_dataset(args, is_train):
                         drop_last=False)
     if args.tensorboard:
         dataset_origin = CustomImageDataset(
-            img_dirs=args.img_dirs, annotations_file_dirs=args.annotations_file_dirs,
+            img_dirs=img_dirs, annotations_file_dirs=annotations_file_dirs,
             without_label=without_label, in_memory=False, read_method='pillow',
             transform=no_transform, target_transform=None
         )
