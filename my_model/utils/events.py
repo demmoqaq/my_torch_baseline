@@ -6,7 +6,19 @@
 # Author     ：Wang Yuhao
 # Description：
 """
+import os
 import yaml
+import logging
+
+
+def set_logger(name=None):
+    rank = int(os.getenv('RANK', -1))
+    logging.basicConfig(format="%(levelname)s: %(message)s",
+                        level=logging.INFO if (rank in (-1, 0)) else logging.WARNING)
+    return logging.getLogger(name)
+
+
+LOGGER = set_logger(__name__)
 
 
 def load_yaml(file_path):

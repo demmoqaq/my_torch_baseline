@@ -17,7 +17,7 @@ from utils.tensorboard.tensorboard_start import writer
 def load_image_dataset(img_dirs, annotations_file_dirs, args, is_train):
     print('\r->creating data loader...')
     without_label = False
-    if args.annotations_file_dirs is None:
+    if annotations_file_dirs is None:
         print("    ->do not pass annotations_file_dir, will read data directly from directory, default label is 1")
         without_label = True
     dataset = CustomImageDataset(

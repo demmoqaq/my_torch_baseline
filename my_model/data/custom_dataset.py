@@ -53,6 +53,10 @@ class CustomImageDataset(Dataset):
     def read_transform_image(self, img_path):
         if self.read_method == 'pillow':
             image = Image.open(img_path)
+            if image.mode == 'RGBA':
+                image_new = Image.new('RGB', size=image.size, color=(255, 255, 255))
+                image_new.paste(image, image)
+                image = image_new
         elif self.read_method == 'torchvision.io':
             image = read_image(img_path)/255.0
         else:
