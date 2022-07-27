@@ -9,6 +9,7 @@
 import os
 import yaml
 import logging
+import shutil
 
 
 def set_logger(name=None):
@@ -19,6 +20,7 @@ def set_logger(name=None):
 
 
 LOGGER = set_logger(__name__)
+NCOLS = shutil.get_terminal_size().columns
 
 
 def load_yaml(file_path):
